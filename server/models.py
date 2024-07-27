@@ -8,7 +8,7 @@ from config import db, bcrypt
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
-    serialize_rules = ('-_password_hash',)
+    serialize_rules = ('-_password_hash', '-comments.user', '-comments.item')
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, nullable=False, unique=True)
@@ -29,7 +29,7 @@ class User(db.Model, SerializerMixin):
             self._password_hash, password.encode('utf-8'))
 
 
-    # reviews = db.relationship('Review', backref='user')
+    comments = db.relationship('Comment', backref='user')
 
     def __repr__(self):
         return f'<User {self.id}, {self.username}>'
@@ -37,7 +37,7 @@ class User(db.Model, SerializerMixin):
 class Item(db.Model, SerializerMixin):
     __tablename__ = 'items'
 
-    # serialize_rules = ('-reviews.book', '-reviews.user')
+    serialize_rules = ('-comments.item', '-comments.user')
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
@@ -47,7 +47,7 @@ class Item(db.Model, SerializerMixin):
 
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    # reviews = db.relationship('Review', backref='book')
+    comments = db.relationship('Comment', backref='item')
 
     def __repr__(self):
         return f'<Item {self.id}, {self.name}: {self.description}, {self.year_purchased}, {self.image_url}, {self.owner_id}>'
@@ -64,3 +64,16 @@ class Comment(db.Model, SerializerMixin):
 
     def __repr__(self):
         return f'<Comment {self.id}, {self.subject}: {self.description}>'
+    
+class Booking(db.Model, SerializerMixin):
+    __tablename__ = 'bookings'
+
+    id = db.Column(db.Integer, primary_key=True)
+    start_date = db.Column(db.DateTime, nullable=False)
+    end_date = db.Column(db.DateTime)
+
+    item_id = db.Column(db.Integer, db.ForeignKey('items.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    def __repr__(self):
+        return f'<Booking {self.id}, {self.start_date}: {self.end_date}, item: {self.item_id}, user: {self.user_id}>'
