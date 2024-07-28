@@ -17,8 +17,15 @@ from models import Comment, Item, User
 class Home(Resource):
     def get(self):
         return make_response('Welcome to the Gear Bucket API', 200)
+    
+class Items(Resource):
+    def get(self):
+        items = [item.to_dict() for item in Item.query.all()]
+
+        return make_response(items, 200)
 
 api.add_resource(Home, '/')
+api.add_resource(Items, '/items')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
