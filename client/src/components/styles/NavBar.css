@@ -1,0 +1,22 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background: white;
+    }
+    
+    .nav-link{
+        display: flex;
+        color: black;
+        padding: 5px;
+        text-decoration: solid;
+        font-style: italic;
+    }
+    
+    .active {
+        color: black;
+        border-style: solid;
+        box-sizing: content-box;
+        border-width: 2px;
+        border-radius: 10px;
+    }

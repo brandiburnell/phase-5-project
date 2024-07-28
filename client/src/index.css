@@ -5,3 +5,17 @@
   --text: hsla(0, 0%, 100%, 0.88);
 }
 
+body {
+  background-color: white;
+  color: black;
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0%;
+  display: unset;
+}
+
+.body {
+  display: unset;
+}
+

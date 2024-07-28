@@ -1,14 +1,15 @@
 import App from "./components/App";
+import AllItems from "./components/AllItems";
 
 const routes = [
     {
         path:"/",
         element: <App/>,
         children: [
-            // {
-            //     path: "/",
-            //     element: <AllBooks />
-            // },
+            {
+                path: "/",
+                element: <AllItems />
+            }
             // {
             //     path: "/newbook",
             //     element: <BookForm />
