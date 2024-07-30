@@ -1,5 +1,7 @@
 import App from "./components/App";
 import AllItems from "./components/AllItems";
+import ItemDetails from "./components/ItemDetails";
+import ItemForm from "./components/ItemForm";
 
 const routes = [
     {
@@ -9,15 +11,15 @@ const routes = [
             {
                 path: "/",
                 element: <AllItems />
-            }
-            // {
-            //     path: "/newbook",
-            //     element: <BookForm />
-            // },
-            // {
-            //     path: "/books/:id",
-            //     element: <BookDetails />
-            // },
+            },
+            {
+                path: "/newitem",
+                element: <ItemForm />
+            },
+            {
+                path: "/items/:id",
+                element: <ItemDetails />
+            },
             // {
             //     path: "/newreview/:bookID",
             //     element: <ReviewForm />
