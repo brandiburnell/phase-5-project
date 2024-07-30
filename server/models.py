@@ -8,7 +8,7 @@ from config import db, bcrypt
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
-    serialize_rules = ('-_password_hash', '-comments.user', '-comments.item')
+    serialize_rules = ('-_password_hash', '-comments.user', '-comments.item', '-comments.booking')
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, nullable=False, unique=True)
@@ -30,6 +30,7 @@ class User(db.Model, SerializerMixin):
 
 
     comments = db.relationship('Comment', backref='user')
+    bookings = db.relationship('Booking', backref='user')
 
     def __repr__(self):
         return f'<User {self.id}, {self.username}>'
@@ -37,7 +38,7 @@ class User(db.Model, SerializerMixin):
 class Item(db.Model, SerializerMixin):
     __tablename__ = 'items'
 
-    serialize_rules = ('-comments.item', '-comments.user')
+    serialize_rules = ('-comments.item', '-comments.user', '-comments.booking')
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
@@ -48,6 +49,7 @@ class Item(db.Model, SerializerMixin):
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     comments = db.relationship('Comment', backref='item')
+    bookings = db.relationship('Booking', backref='item')
 
     def __repr__(self):
         return f'<Item {self.id}, {self.name}: {self.description}, {self.year_purchased}, {self.image_url}, {self.owner_id}>'

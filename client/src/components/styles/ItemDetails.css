@@ -17,7 +17,7 @@
 }
 
 .comment-container {
-    background-color: rgba(245, 245, 245, 0.2);
+    background-color: lightgray;
     width: 100%;
     border-radius: 10px;
 }
@@ -29,19 +29,16 @@
     flex-wrap: nowrap;
     flex-direction: row;
     align-items: baseline;
+    margin: 10px;
 }
 
 .add-comment {
     height: fit-content;
-    padding: 0.5%;
-    background-color: #140029; 
+    background-color: black; 
     color: whitesmoke;
     border: none;
     border-radius: 10px;
     font-size: 1.5em;
-    font-weight: bold;
-    unicode-bidi: isolate;
-    font-style: italic;
     width: 15em;
     box-shadow: 0 0 5px 1px whitesmoke;
 }
@@ -96,6 +93,5 @@
     font-weight: bold;
     unicode-bidi: isolate;
     font-style: italic;
-    box-shadow: 0 0 5px 1px whitesmoke;
     width: -webkit-fill-available;
 }

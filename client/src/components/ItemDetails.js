@@ -3,6 +3,7 @@ import { useEffect, useState} from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import '../components/styles/ItemDetails.css'
+import CommentCard from "./CommentCard";
 
 function ItemDetails() {
     const [item, setItem] = useState({});
@@ -27,6 +28,16 @@ function ItemDetails() {
     // eslint-disable-next-line
     }, [refreshPage])
 
+    // FIND WAY TO GET USER NAME FROM USER FETCH 
+
+    // useEffect(() => {
+    //     fetch(`/users/${item.owner_id}`)
+    //         .then(r => r.json())
+    //         .then(user => setUser(user))
+    //         .catch(error => console.error(error));
+    // //eslint-disable-next-line
+    // }, [item])
+
     function handleDelete() {
         if (window.confirm("are you sure you want to delete this item?")) {
             fetch(`/items/${itemId}`, {
@@ -35,7 +46,7 @@ function ItemDetails() {
                 .then(() => {
                     const newItems = items.filter((item) => item.id !== itemId);
                     setItems(newItems); 
-                    window.alert(`${item.name} has been removed from the library`)
+                    window.alert(`${item.name} has been removed from the gear bucket`)
                     setRefreshPage(!refreshPage);
                 });
         }
@@ -45,18 +56,17 @@ function ItemDetails() {
         return <h1>loading...</h1>;
     };
 
-    // const itemComments = item.comments.map(comments => {
-    //     return (
-    //         <CommentCard
-    //             bookId={bookId}
-    //             description={review.description}
-    //             rating={review.rating}
-    //             subject={review.subject}
-    //             userId={review.user_id}
-    //             key={review.id}
-    //         />
-    //     );
-    // });
+    const itemComments = item.comments.map(comment => {
+        return (
+            <CommentCard
+                itemId={itemId}
+                description={comment.description}
+                subject={comment.subject}
+                userId={comment.user_id}
+                key={comment.id}
+            />
+        );
+    });
 
     return (
         <div className="item-details-container">
@@ -84,13 +94,13 @@ function ItemDetails() {
                         <button className="delete-button" onClick={handleDelete}>delete item</button>
                     </div>
                 </div>
-                {/* <div className="comment-container">
+                <div className="comment-container">
                     <div className="comment-heading">
-                        <h2>comments</h2>
-                        <button className="add-comment" onClick={() => navigate(`/newcomment/${itemId}`)}>add a comment</button>
+                        <Typography variant="h4">comments</Typography>
+                        <button className="add-comment" onClick={() => navigate(`/newcomment/${itemId}`)}><Typography variant="h4">add a comment</Typography></button>
                     </div>
                     {itemComments.length === 0? <div className="comment" style={{justifyItems: "center"}}>no comments yet</div> : itemComments}
-                </div> */}
+                </div>
             </div>
         </div>
     );

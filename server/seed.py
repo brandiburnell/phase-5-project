@@ -65,5 +65,26 @@ if __name__ == '__main__':
 
         print('Items added!')
 
+        # add Comment seed data
+        print('Adding comments...')
+        comments = []
+        for i in range (20):
+            comment = Comment(
+                subject=fake.text(max_nb_chars=20),
+                description=fake.paragraph(nb_sentences=3),
+            )
+
+            comment.user = rc(users)
+            comment.item = rc(items)
+
+            comments.append(comment)
+
+        db.session.add_all(comments)
+
+        print('Comments added!')
+
+        print('Committing all data...')
+
         db.session.commit()
+        print('Complete.')
 
